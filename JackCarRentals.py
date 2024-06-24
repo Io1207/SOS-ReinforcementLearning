@@ -1,13 +1,12 @@
 import numpy as np
 
-# Problem parameters
 max_cars = 20
 max_transfer = 5
 rental_reward = 10
 transfer_cost = 2
 poisson_cache = {}
 
-# Poisson distribution for caching
+#Poisson distribution 
 def poisson(n, lam):
     global poisson_cache
     key = (n, lam)
@@ -15,15 +14,13 @@ def poisson(n, lam):
         poisson_cache[key] = np.exp(-lam) * (lam ** n) / np.math.factorial(n)
     return poisson_cache[key]
 
-# Expected return function
+# expected return func
 def expected_return(state, action, state_value):
     returns = 0.0
     
-    # Moving cars
+    # mooove
     cars_loc1 = min(state[0] - action, max_cars)
     cars_loc2 = min(state[1] + action, max_cars)
-    
-    # Cost for moving cars
     returns -= transfer_cost * abs(action)
     
     for rental_requests_loc1 in range(0, 11):
@@ -48,14 +45,14 @@ def expected_return(state, action, state_value):
     
     return returns
 
-# Policy Iteration
+# iterate
 def policy_iteration():
     state_value = np.zeros((max_cars + 1, max_cars + 1))
     policy = np.zeros((max_cars + 1, max_cars + 1), dtype=np.int)
     
     stable_policy = False
     while not stable_policy:
-        # Policy Evaluation
+        # eval
         while True:
             old_value = np.copy(state_value)
             for i in range(max_cars + 1):
@@ -64,7 +61,6 @@ def policy_iteration():
             if np.sum(np.abs(old_value - state_value)) < 1e-4:
                 break
         
-        # Policy Improvement
         stable_policy = True
         for i in range(max_cars + 1):
             for j in range(max_cars + 1):
@@ -84,7 +80,7 @@ def policy_iteration():
 
 if __name__ == "__main__":
     policy, state_value = policy_iteration()
-    print("Optimal Policy:")
+    print("best policy:")
     print(policy)
-    print("Optimal State Value:")
+    print("optimal state val:")
     print(state_value)
