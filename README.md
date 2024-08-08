@@ -9,4 +9,8 @@ Week3: Monte Carlo methods+ Temporal Difference method
 
 Week4: Temporal Difference method, David Silver RL Lectures 4-8
 
-Week5: Eligibility Traces, Planning and Learning with Tabular Methods
+Week5: TDL, Eligibility Traces
+
+Week6: Planning and Learning with Tabular Methods
+
+Week7,8: Dyna, applications of RL
